@@ -63,7 +63,7 @@ export const mockVideos: Video[] = [
   {
     id: "5",
     title: "Advanced React Hooks Tutorial - Custom Hooks & Best Practices",
-    thumbnail: thumbnail1,
+    thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1280&h=720&fit=crop&crop=center",
     channelName: "Code Academy",
     channelAvatar: "/api/placeholder/40/40",
     views: 234000,
@@ -74,12 +74,78 @@ export const mockVideos: Video[] = [
   {
     id: "6",
     title: "Wildlife Photography in National Parks - Complete Guide",
-    thumbnail: thumbnail2,
+    thumbnail: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=1280&h=720&fit=crop&crop=center",
     channelName: "Photo Adventures",
     channelAvatar: "/api/placeholder/40/40",
     views: 678000,
     uploadDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
     duration: "22:11",
     description: "Complete guide to wildlife photography in national parks with professional tips and techniques."
+  },
+  {
+    id: "7",
+    title: "Ocean Waves Relaxation - 4K Nature Sounds for Sleep",
+    thumbnail: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1280&h=720&fit=crop&crop=center",
+    channelName: "Nature Sounds",
+    channelAvatar: "/api/placeholder/40/40",
+    views: 2100000,
+    uploadDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
+    duration: "60:00",
+    description: "Relaxing ocean waves for meditation, sleep, and stress relief. Perfect background sounds."
+  },
+  {
+    id: "8",
+    title: "Desert Photography Masterclass - Capturing Sand Dunes",
+    thumbnail: "https://images.unsplash.com/photo-1482938289607-d4a9ddbe4151?w=1280&h=720&fit=crop&crop=center",
+    channelName: "Desert Explorer",
+    channelAvatar: "/api/placeholder/40/40",
+    views: 89000,
+    uploadDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
+    duration: "16:42",
+    description: "Learn the art of desert photography with stunning sand dune compositions and lighting techniques."
+  },
+  {
+    id: "9",
+    title: "Forest Sunbeam Photography - Golden Hour Magic",
+    thumbnail: "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=1280&h=720&fit=crop&crop=center",
+    channelName: "Forest Films",
+    channelAvatar: "/api/placeholder/40/40",
+    views: 445000,
+    uploadDate: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000),
+    duration: "19:33",
+    description: "Capture the magical golden hour sunbeams in forest photography with these pro techniques."
+  },
+  {
+    id: "10",
+    title: "Night Sky Photography - Capturing Stars & Milky Way",
+    thumbnail: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=1280&h=720&fit=crop&crop=center",
+    channelName: "Astro Photographer",
+    channelAvatar: "/api/placeholder/40/40",
+    views: 567000,
+    uploadDate: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000),
+    duration: "28:15",
+    description: "Complete guide to astrophotography - equipment, settings, and post-processing for stunning night sky shots."
+  },
+  {
+    id: "11",
+    title: "Wild Sheep Migration - Amazing Nature Documentary",
+    thumbnail: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=1280&h=720&fit=crop&crop=center",
+    channelName: "Wildlife World",
+    channelAvatar: "/api/placeholder/40/40",
+    views: 1500000,
+    uploadDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+    duration: "42:18",
+    description: "Follow the incredible journey of wild sheep during their seasonal migration across mountain ranges."
+  },
+  {
+    id: "12",
+    title: "Cute Cats Compilation - Funniest Cat Videos 2024",
+    thumbnail: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=1280&h=720&fit=crop&crop=center",
+    channelName: "Funny Pets",
+    channelAvatar: "/api/placeholder/40/40",
+    views: 3200000,
+    uploadDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    duration: "14:27",
+    description: "The cutest and funniest cat moments that will make your day! Subscribe for more pet content."
   }
 ];
