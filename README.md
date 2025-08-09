@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# XP Videos - A Video Platform Frontend Prototype
 
-## Project info
+This project is a feature-rich, responsive frontend prototype for a modern video-sharing platform, built entirely with HTML, CSS, and vanilla JavaScript. It serves as a visual and interactive demonstration of what the final application could look like, simulating many core features of a real-world video site.
 
-**URL**: https://lovable.dev/projects/767b3e2e-0eff-4b14-b4e1-c3a6306d024b
+## Features
 
-## How can I edit this code?
+The current prototype includes a wide range of simulated features:
 
-There are several ways of editing your application.
+### Core User Experience
+- **Responsive Design:** The layout adapts smoothly to different screen sizes, from desktops to mobile devices.
+- **Dynamic Video Grid:** A main view that displays video cards in a clean, responsive grid.
+- **Custom Video Player:** A modal-based video player that appears over the content, featuring:
+    - Custom video controls (play/pause, seek, volume via keyboard shortcuts).
+    - Display of video title, views, and like counts.
+    - A "Related Videos" sidebar for continuous discovery.
+- **Interactive Sidebar:** A collapsible navigation sidebar for accessing different sections of the site.
+- **Search Functionality:** A search bar in the header to filter videos by title, channel, or description.
 
-**Use Lovable**
+### User & Content Interaction (Simulated)
+- **User Authentication:** A complete, simulated user system with modals for Sign In and Sign Up.
+- **Personalized Experience:** Once "logged in," the UI updates to show the user's initial and provides access to user-specific actions.
+- **Video Upload:** A modal and form for "uploading" new videos.
+- **Liking Videos:** Users can like/unlike videos, with the like count updating in real-time.
+- **Commenting System:** A dedicated comments section below the video player where users can post comments.
+- **Playlist Management:**
+    - Create new playlists with a name, description, and privacy settings.
+    - Add videos to existing playlists from the video player.
+- **Content Sections:** Navigation links for simulated sections like History, Liked Videos, Watch Later, and Subscriptions.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/767b3e2e-0eff-4b14-b4e1-c3a6306d024b) and start prompting.
+## How to Run
 
-Changes made via Lovable will be committed automatically to this repo.
+This is a pure frontend prototype. No build process or server is required.
 
-**Use your preferred IDE**
+1.  Clone or download the project files.
+2.  Open the `index.html` file directly in any modern web browser (like Chrome, Firefox, or Edge).
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `index.html`: The main file containing the entire HTML structure, all JavaScript logic, and sample data.
+- `style.css`: The stylesheet that defines the visual appearance, layout, and responsiveness of the application.
+- `images/`: A folder containing the thumbnail images used for the sample videos.
 
-Follow these steps:
+## Technical Stack
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- **HTML5:** For the structure and semantics of the web page.
+- **CSS3:** For all styling, including layout (Flexbox/Grid), theming (CSS Variables), and responsiveness.
+- **Vanilla JavaScript (ES6+):** For all interactivity, state management, and DOM manipulation. No external libraries or frameworks are used.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Path to Production
 
-# Step 3: Install the necessary dependencies.
-npm i
+This prototype is an excellent foundation. To turn it into a full, production-ready application, the following backend components would need to be built:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/767b3e2e-0eff-4b14-b4e1-c3a6306d024b) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1.  **Backend Server & API:** An application (e.g., using Node.js, Python, Go) to handle business logic.
+2.  **Database:** A system (e.g., PostgreSQL, MongoDB) to permanently store user data, video metadata, comments, etc.
+3.  **User Authentication:** A secure system for managing user accounts, passwords, and sessions.
+4.  **Video Processing & Storage:** A robust pipeline for uploading, transcoding (converting to different resolutions), and storing video files in a cloud service like AWS S3.
+5.  **Frontend/Backend Integration:** Refactoring the JavaScript to make API calls to the backend instead of using the current hardcoded sample data.

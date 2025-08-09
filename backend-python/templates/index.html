@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XP-Vidoes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23000000'/%3E%3Ctext x='7' y='22' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%233366FF'%3EX%3C/text%3E%3Ctext x='17' y='22' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23FFFFFF'%3EP%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button type="button" class="icon-btn" id="toggleSidebarBtn" aria-label="Toggle sidebar">
+                <svg class="menu-icon" aria-hidden="true" focusable="false">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <a href="#" class="logo" id="logoLink">
+                <span class="logo-text"><span class="logo-xp">XP</span> <span class="logo-videos">Videos</span></span>
+            </a>
+        </div>
+        <div class="header-center">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search" id="searchInput">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" fill="#fff">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="uploadBtn" style="display: none;" aria-label="Upload video">
+                <svg width="24" height="24" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+            </button>
+            <div class="header-icon" id="userAvatar" tabindex="0" role="button" aria-label="User menu">
+                <span id="userInitial">?</span>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <div class="user-menu-item" id="loginItem" role="button">
+                    <svg width="20" height="20" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Sign In
+                </div>
+                <div class="user-menu-item" id="logoutItem" style="display: none;" role="button">
+                    <svg width="20" height="20" fill="currentColor">
+                        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                    </svg>
+                    Sign Out
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-item active" data-nav="home" role="button" tabindex="0">
+                <svg class="sidebar-icon">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/>
+                </svg>
+                Home
+            </div>
+            <div class="sidebar-dropdown" id="channelsDropdown">
+                <div class="sidebar-item" data-nav="channels" role="button" tabindex="0">
+                    <svg class="sidebar-icon">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 12H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2z" fill="currentColor"/>
+                    </svg>
+                    Channels
+                    <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 24 24">
+                        <path d="M7 10l5 5 5-5z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="dropdown-content" id="channelsDropdownContent">
+                    <div class="sidebar-item" data-nav="channels-all" role="button" tabindex="0">All Channels</div>
+                    <div class="sidebar-item" data-nav="channels-teen" data-category="Teen" role="button" tabindex="0">Teen</div>
+                    <div class="sidebar-item" data-nav="channels-virgin" data-category="Virgin" role="button" tabindex="0">Virgin</div>
+                    <div class="sidebar-item" data-nav="channels-amateur" data-category="Amateur" role="button" tabindex="0">Amateur</div>
+                </div>
+            </div>
+            <div class="sidebar-item" data-nav="subscriptions">
+                <svg class="sidebar-icon">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" fill="currentColor"/>
+                </svg>
+                Subscriptions
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-item" data-nav="library">
+                <svg class="sidebar-icon">
+                    <path d="M11 7l6 3.5L11 14V7z" fill="currentColor"/>
+                </svg>
+                Library
+            </div>
+            <div class="sidebar-item" data-nav="history">
+                <svg class="sidebar-icon">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+                </svg>
+                History
+            </div>
+            <div class="sidebar-item" data-nav="watchlater">
+                <svg class="sidebar-icon">
+                    <path d="M14.97 16.95L10 13.87V7h2v5.76l4.03 2.49-1.06 1.7zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" fill="currentColor"/>
+                </svg>
+                Watch later
+            </div>
+            <div class="sidebar-item" data-nav="liked" onclick="showLikedVideos()">
+                <svg class="sidebar-icon">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+                </svg>
+                Liked videos
+            </div>
+            <div class="sidebar-item" data-nav="playlists" onclick="showPlaylists()">
+                <svg class="sidebar-icon">
+                    <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z" fill="currentColor"/>
+                </svg>
+                Playlists
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div id="homeView">
+            <div class="video-grid" id="videoGrid">
+                <!-- Videos will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div id="playlistsView" style="display: none;">
+            <div class="playlist-section">
+                <div class="playlist-header">
+                    <h2>Your Playlists</h2>
+                    <button class="create-playlist-btn" onclick="showCreatePlaylistModal()">Create Playlist</button>
+                </div>
+                <div class="playlist-grid" id="playlistGrid">
+                    <!-- Playlists will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Video Player Modal -->
+    <div class="video-player" id="videoPlayer">
+        <div class="video-player-content">
+            <div class="player-main">
+                <button class="player-close" onclick="closeVideoPlayer()">&times;</button>
+                <div class="player-video">
+                    <video class="video-element" id="videoElement" controls>
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="player-info">
+                    <h1 class="player-title" id="playerTitle">Video Title</h1>
+                    <div class="player-stats">
+                        <span class="player-views" id="playerViews">0 views</span>
+                        <div class="player-actions">
+                            <button class="action-btn" onclick="toggleLike()" id="likeBtn">
+                                <svg width="24" height="24" fill="currentColor">
+                                    <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
+                                </svg>
+                                <span id="likeCount">0</span>
+                            </button>
+                            <button class="action-btn" onclick="addToPlaylist()">
+                                <svg width="24" height="24" fill="currentColor">
+                                    <path d="M14 10H2v2h12v-2zm0-4H2v2h12V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM2 16h8v-2H2v2z"/>
+                                </svg>
+                                Save
+                            </button>
+                            <button class="action-btn" onclick="shareVideo()">
+                                <svg width="24" height="24" fill="currentColor">
+                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                                </svg>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                    <div class="comments-section">
+                        <h3 class="comments-header">Comments</h3>
+                        <div class="comment-form">
+                            <div class="comment-avatar" id="commentAvatar">U</div>
+                            <input type="text" class="comment-input" placeholder="Add a comment..." id="commentInput">
+                            <button class="comment-submit" onclick="addComment()">Comment</button>
+                        </div>
+                        <div id="commentsList">
+                            <!-- Comments will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="player-sidebar">
+                <h3>Related Videos</h3>
+                <div id="relatedVideos">
+                    <!-- Related videos will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUploadModal()">&times;</span>
+            <h2>Upload Video</h2>
+            <form class="upload-form" onsubmit="uploadVideo(event)">
+                <div class="form-group">
+                    <label class="form-label">Video File</label>
+                    <div class="file-input" onclick="document.getElementById('videoFile').click()">
+                        <input type="file" id="videoFile" accept="video/*" style="display: none;" onChange="handleFileSelect(event)">
+                        <p id="fileText">Click to select video file</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" id="videoTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input form-textarea" id="videoDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Thumbnail</label>
+                    <div class="file-input" onclick="document.getElementById('thumbnailFile').click()">
+                        <input type="file" id="thumbnailFile" accept="image/*" style="display: none;">
+                        <p>Click to select thumbnail image</p>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Upload Video</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Sign Up</button>
+            </div>
+            
+            <form class="auth-form" id="loginForm" onsubmit="login(event)">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Sign In</button>
+            </form>
+
+            <form class="auth-form" id="registerForm" style="display: none;" onsubmit="register(event)">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="registerPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Playlist Modal -->
+    <div class="modal" id="playlistModal">
+        <div class="modal-content">
+            <span class="close" onclick="closePlaylistModal()">&times;</span>
+            <h2>Create Playlist</h2>
+            <form class="upload-form" onsubmit="createPlaylist(event)">
+                <div class="form-group">
+                    <label class="form-label">Playlist Name</label>
+                    <input type="text" class="form-input" id="playlistName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input form-textarea" id="playlistDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Privacy</label>
+                    <select class="form-input" id="playlistPrivacy">
+                        <option value="public">Public</option>
+                        <option value="unlisted">Unlisted</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Create Playlist</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add to Playlist Modal -->
+    <div class="modal" id="addToPlaylistModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddToPlaylistModal()">&times;</span>
+            <h2>Save to Playlist</h2>
+            <div id="playlistOptions">
+                <!-- Playlist options will be populated by JavaScript -->
+            </div>
+            <button class="create-playlist-btn" onclick="showCreatePlaylistModal(); closeAddToPlaylistModal();">Create New Playlist</button>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentUser = null;
+        let currentVideo = null;
+        let videos = [];
+        let playlists = [];
+        let watchHistory = [];
+        let likedVideos = [];
+        let watchLaterVideos = [];
+
+        // Initialize the application
+        async function initApp() {
+            try {
+                // Fetch videos from your new backend API
+                const response = await fetch('/api/videos');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                videos = await response.json();
+                
+                // You no longer need to fetch videos.json
+                populateVideoGrid();
+                loadUserData();
+            } catch (error) {
+                console.error('Failed to load initial video data:', error);
+                document.getElementById('videoGrid').innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Error loading videos. Please try again later.</p>';
+            }
+        }
+
+        // User authentication functions
+        async function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Login failed');
+                }
+
+                currentUser = data;
+                updateUserInterface();
+                closeAuthModal();
+                alert('Logged in successfully!');
+
+            } catch (error) {
+                alert(`Login Error: ${error.message}`);
+            }
+        }
+
+        async function register(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Registration failed');
+                }
+
+                // Automatically log in the user after successful registration
+                currentUser = data;
+                updateUserInterface();
+                closeAuthModal();
+                alert('Account created successfully!');
+
+            } catch (error) {
+                alert(`Registration Error: ${error.message}`);
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            updateUserInterface();
+            toggleUserMenu();
+            alert('Logged out successfully!');
+        }
+
+        function updateUserInterface() {
+            const userInitial = document.getElementById('userInitial');
+            const loginItem = document.getElementById('loginItem');
+            const logoutItem = document.getElementById('logoutItem');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const commentAvatar = document.getElementById('commentAvatar');
+            
+            if (currentUser) {
+                userInitial.textContent = currentUser.avatar;
+                loginItem.style.display = 'none';
+                logoutItem.style.display = 'flex';
+                uploadBtn.style.display = 'block';
+                commentAvatar.textContent = currentUser.avatar;
+            } else {
+                userInitial.textContent = '?';
+                loginItem.style.display = 'flex';
+                logoutItem.style.display = 'none';
+                uploadBtn.style.display = 'none';
+                commentAvatar.textContent = 'U';
+            }
+        }
+
+        // Video functions
+        function createVideoCard(video) {
+            const channelInitial = video.channel.charAt(0);
+            return `
+                <div class="video-card" onclick="playVideo(${video.id})">
+                    <div class="video-thumbnail">
+                        <img src="${video.thumbnail}" alt="${video.title}" onerror="this.style.display='none'">
+                        <div class="video-duration">${video.duration}</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="channel-avatar">${channelInitial}</div>
+                        <div class="video-details">
+                            <div class="video-title">${video.title}</div>
+                            <div class="video-meta">
+                                <div class="channel-name">${video.channel}</div>
+                                <div>${video.views} • ${video.time}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function populateVideoGrid(videosToShow = videos) {
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = videosToShow.map(video => createVideoCard(video)).join('');
+        }
+
+        async function playVideo(videoId) {
+            // Fetch the specific video details from the backend
+            try {
+                const response = await fetch(`/api/videos/${videoId}`);
+                if (!response.ok) {
+                    throw new Error('Video not found');
+                }
+                currentVideo = await response.json();
+
+                // Add to history (this logic will eventually move to the backend)
+                if (currentUser && !watchHistory.find(v => v.id === videoId)) {
+                    watchHistory.unshift(currentVideo);
+                }
+
+                // Update player
+                document.getElementById('videoElement').src = currentVideo.videoUrl;
+                document.getElementById('playerTitle').textContent = currentVideo.title;
+                document.getElementById('playerViews').textContent = currentVideo.views;
+                document.getElementById('likeCount').textContent = currentVideo.likes;
+                
+                // Update like button state (this will also move to the backend)
+                const likeBtn = document.getElementById('likeBtn');
+                if (likedVideos.find(v => v.id === videoId)) {
+                    likeBtn.classList.add('liked');
+                } else {
+                    likeBtn.classList.remove('liked');
+                }
+
+                // Load comments for this video (will need a backend endpoint)
+                await loadComments(videoId);
+                
+                // Show related videos (will need a backend endpoint)
+                showRelatedVideos(videoId);
+                
+                // Show video player
+                document.getElementById('videoPlayer').style.display = 'flex';
+            } catch (error) {
+                console.error('Failed to play video:', error);
+                alert('Could not load video details.');
+            }
+        }
+
+        function closeVideoPlayer() {
+            document.getElementById('videoPlayer').style.display = 'none';
+            document.getElementById('videoElement').pause();
+        }
+
+        function toggleLike() {
+            if (!currentUser) {
+                alert('Please sign in to like videos');
+                return;
+            }
+
+            const likeBtn = document.getElementById('likeBtn');
+            const likeCount = document.getElementById('likeCount');
+            const existingLike = likedVideos.find(v => v.id === currentVideo.id);
+
+            if (existingLike) {
+                // Unlike
+                likedVideos = likedVideos.filter(v => v.id !== currentVideo.id);
+                likeBtn.classList.remove('liked');
+                currentVideo.likes--;
+            } else {
+                // Like
+                likedVideos.push(currentVideo);
+                likeBtn.classList.add('liked');
+                currentVideo.likes++;
+            }
+
+            likeCount.textContent = currentVideo.likes;
+        }
+
+        function shareVideo() {
+            if (navigator.share) {
+                navigator.share({
+                    title: currentVideo.title,
+                    text: `Check out this video: ${currentVideo.title}`,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Video link copied to clipboard!');
+                });
+            }
+        }
+
+        function showRelatedVideos(currentVideoId) {
+            const relatedContainer = document.getElementById('relatedVideos');
+            const related = videos.filter(v => v.id !== currentVideoId).slice(0, 5);
+            
+            relatedContainer.innerHTML = related.map(video => `
+                <div class="related-video-item" onclick="playVideo(${video.id})">
+                    <div class="related-video-item-thumbnail">
+                        <img src="${video.thumbnail}" alt="${video.title}">
+                        <div class="video-duration">${video.duration}</div>
+                    </div>
+                    <div class="related-video-item-details">
+                        <div class="related-video-item-title">${video.title}</div>
+                        <div class="related-video-item-meta">
+                            <div class="channel-name">${video.channel}</div>
+                            <div>${video.views}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Comments system
+        async function loadComments(videoId) {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = '<p>Loading comments...</p>';
+
+            try {
+                const response = await fetch(`/api/videos/${videoId}/comments`);
+                if (!response.ok) throw new Error('Failed to load comments');
+                const comments = await response.json();
+
+                if (comments.length === 0) {
+                    commentsList.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
+                    return;
+                }
+
+                commentsList.innerHTML = comments.map(comment => `
+                    <div class="comment">
+                        <div class="comment-avatar">${comment.author.charAt(0)}</div>
+                        <div class="comment-content">
+                            <div class="comment-author">
+                                ${comment.author} 
+                                <span class="comment-time" style="color: var(--text-secondary); font-size: 12px;">
+                                    - ${formatTimeAgo(new Date(comment.timestamp))}
+                                </span>
+                            </div>
+                            <div class="comment-text">${comment.text}</div>
+                            <div class="comment-actions">
+                                <div class="comment-action">
+                                    <svg width="16" height="16" fill="currentColor"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/></svg>
+                                    0
+                                </div>
+                                <div class="comment-action">Reply</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading comments:', error);
+                commentsList.innerHTML = '<p>Could not load comments.</p>';
+            }
+        }
+
+        async function addComment() {
+            if (!currentUser) {
+                alert('Please sign in to comment.');
+                showAuthModal();
+                return;
+            }
+
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+            
+            if (!commentText) return;
+
+            const newCommentData = {
+                author: currentUser.username,
+                text: commentText
+            };
+
+            try {
+                const response = await fetch(`/api/videos/${currentVideo.id}/comments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newCommentData),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to post comment');
+                }
+
+                commentInput.value = '';
+                await loadComments(currentVideo.id); // Refresh the comments list
+            } catch (error) {
+                console.error('Error posting comment:', error);
+                alert('Could not post comment.');
+            }
+        }
+
+        // Upload functionality
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('fileText').textContent = file.name;
+            }
+        }
+
+        function uploadVideo(event) {
+            event.preventDefault();
+            
+            if (!currentUser) {
+                alert('Please sign in to upload videos');
+                return;
+            }
+
+            const title = document.getElementById('videoTitle').value;
+            const description = document.getElementById('videoDescription').value;
+            const videoFile = document.getElementById('videoFile').files[0];
+            
+            if (!videoFile) {
+                alert('Please select a video file');
+                return;
+            }
+
+            // Simulate video upload
+            const newVideo = {
+                id: Date.now(),
+                title: title,
+                channel: currentUser.username,
+                channelId: currentUser.username.toLowerCase(),
+                views: "0 views",
+                time: "just now",
+                duration: "00:00",
+                thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop",
+                videoUrl: URL.createObjectURL(videoFile),
+                likes: 0,
+                description: description,
+                uploadDate: new Date()
+            };
+
+            videos.unshift(newVideo);
+            populateVideoGrid();
+            closeUploadModal();
+            alert('Video uploaded successfully!');
+        }
+
+        // Playlist functionality
+        function createPlaylist(event) {
+            event.preventDefault();
+            
+            if (!currentUser) {
+                alert('Please sign in to create playlists');
+                return;
+            }
+
+            const name = document.getElementById('playlistName').value;
+            const description = document.getElementById('playlistDescription').value;
+            const privacy = document.getElementById('playlistPrivacy').value;
+
+            const newPlaylist = {
+                id: Date.now(),
+                name: name,
+                description: description,
+                privacy: privacy,
+                videos: [],
+                createdBy: currentUser.id,
+                createdAt: new Date()
+            };
+
+            playlists.push(newPlaylist);
+            populatePlaylistGrid();
+            closePlaylistModal();
+            alert('Playlist created successfully!');
+        }
+
+        function addToPlaylist() {
+            if (!currentUser) {
+                alert('Please sign in to save videos');
+                return;
+            }
+
+            if (!currentVideo) return;
+
+            const modal = document.getElementById('addToPlaylistModal');
+            const playlistOptions = document.getElementById('playlistOptions');
+            
+            const userPlaylists = playlists.filter(p => p.createdBy === currentUser.id);
+            
+            playlistOptions.innerHTML = userPlaylists.map(playlist => `
+                <div class="user-menu-item" onclick="saveToPlaylist(${playlist.id})">
+                    <svg width="20" height="20" fill="currentColor">
+                        <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/>
+                    </svg>
+                    ${playlist.name}
+                </div>
+            `).join('');
+
+            modal.style.display = 'block';
+        }
+
+        function saveToPlaylist(playlistId) {
+            const playlist = playlists.find(p => p.id === playlistId);
+            if (playlist && !playlist.videos.find(v => v.id === currentVideo.id)) {
+                playlist.videos.push(currentVideo);
+                alert(`Added to ${playlist.name}`);
+            }
+            closeAddToPlaylistModal();
+        }
+
+        function populatePlaylistGrid() {
+            const playlistGrid = document.getElementById('playlistGrid');
+            const userPlaylists = currentUser ? playlists.filter(p => p.createdBy === currentUser.id) : [];
+            
+            playlistGrid.innerHTML = userPlaylists.map(playlist => `
+                <div class="playlist-card" onclick="openPlaylist(${playlist.id})">
+                    <div class="playlist-thumbnail">
+                        <svg width="48" height="48" fill="#fff">
+                            <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/>
+                        </svg>
+                    </div>
+                    <div class="playlist-info">
+                        <div class="playlist-title">${playlist.name}</div>
+                        <div class="playlist-count">${playlist.videos.length} videos</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openPlaylist(playlistId) {
+            const playlist = playlists.find(p => p.id === playlistId);
+            if (playlist) {
+                populateVideoGrid(playlist.videos);
+            }
+        }
+
+        // Search functionality
+        function searchVideos() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.toLowerCase().trim();
+            
+            if (query === '') {
+                populateVideoGrid(videos);
+                return;
+            }
+            
+            const filteredVideos = videos.filter(video => 
+                video.title.toLowerCase().includes(query) ||
+                video.channel.toLowerCase().includes(query) ||
+                video.description.toLowerCase().includes(query)
+            );
+            
+            populateVideoGrid(filteredVideos);
+        }
+
+        // Navigation functions
+        function showHome() {
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('playlistsView').style.display = 'none';
+            populateVideoGrid(videos);
+            updateActiveMenuItem('home');
+        }
+
+        function showCategory(categoryName) {
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('playlistsView').style.display = 'none';
+            const filteredVideos = videos.filter(v => v.category === categoryName);
+            populateVideoGrid(filteredVideos);
+            updateActiveMenuItem(`channels-${categoryName.toLowerCase()}`);
+        }
+
+        function showShorts() {
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('playlistsView').style.display = 'none';
+            // For demo purposes, we'll define "shorts" as videos under 3 minutes
+            const shortsVideos = videos.filter(v => {
+                if (!v.duration) return false;
+                const parts = v.duration.split(':').map(Number);
+                if (parts.length === 2) { // Format MM:SS
+                    return parts[0] < 3;
+                }
+                return false; // Exclude videos longer than an hour for simplicity
+            });
+            populateVideoGrid(shortsVideos);
+            updateActiveMenuItem('shorts-all');
+        }
+
+        function showTrendingShorts() {
+            alert('Showing trending shorts (feature not implemented)');
+            updateActiveMenuItem('shorts-trending');
+        }
+
+        function showNewestShorts() {
+            alert('Showing newest shorts (feature not implemented)');
+            updateActiveMenuItem('shorts-newest');
+        }
+
+        function showSubscriptions() {
+            // In a real app, this would show videos from subscribed channels
+            populateVideoGrid(videos.slice(0, 3));
+            updateActiveMenuItem('subscriptions');
+        }
+
+        function showLibrary() {
+            populateVideoGrid(videos);
+            updateActiveMenuItem('library');
+        }
+
+        function showHistory() {
+            populateVideoGrid(watchHistory);
+            updateActiveMenuItem('history');
+        }
+
+        function showWatchLater() {
+            populateVideoGrid(watchLaterVideos);
+            updateActiveMenuItem('watchlater');
+        }
+
+        function showLikedVideos() {
+            populateVideoGrid(likedVideos);
+            updateActiveMenuItem('liked');
+        }
+
+        function showPlaylists() {
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('playlistsView').style.display = 'block';
+            populatePlaylistGrid();
+            updateActiveMenuItem('playlists');
+        }
+
+        function updateActiveMenuItem(activeItem) {
+            // Remove active class from all sidebar items
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to the clicked item using its data-nav attribute
+            const itemToActivate = document.querySelector(`.sidebar-item[data-nav="${activeItem}"]`);
+            if (itemToActivate) {
+                itemToActivate.classList.add('active');
+
+                // If the activated item is inside a dropdown, ensure the dropdown is open
+                const parentDropdown = itemToActivate.closest('.sidebar-dropdown');
+                if (parentDropdown && !parentDropdown.classList.contains('open')) {
+                    parentDropdown.classList.add('open');
+                }
+            }
+        }
+        
+        // Modal functions
+        function showUploadModal() {
+            if (!currentUser) {
+                showAuthModal();
+                return;
+            }
+            document.getElementById('uploadModal').style.display = 'block';
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').style.display = 'none';
+            document.getElementById('videoTitle').value = '';
+            document.getElementById('videoDescription').value = '';
+            document.getElementById('fileText').textContent = 'Click to select video file';
+        }
+
+        function showAuthModal() {
+            document.getElementById('authModal').style.display = 'block';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.auth-tab');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'login') {
+                loginForm.style.display = 'flex';
+                registerForm.style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'flex';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        function showCreatePlaylistModal() {
+            if (!currentUser) {
+                showAuthModal();
+                return;
+            }
+            document.getElementById('playlistModal').style.display = 'block';
+        }
+
+        function closePlaylistModal() {
+            document.getElementById('playlistModal').style.display = 'none';
+            document.getElementById('playlistName').value = '';
+            document.getElementById('playlistDescription').value = '';
+        }
+
+        function closeAddToPlaylistModal() {
+            document.getElementById('addToPlaylistModal').style.display = 'none';
+        }
+
+        // UI functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleChannelsDropdown(element) {
+            const dropdown = element.closest('.sidebar-dropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        // Data persistence (simulated with localStorage)
+        function saveUserData() {
+            if (typeof Storage !== "undefined") {
+                const userData = {
+                    currentUser,
+                    videos,
+                    playlists,
+                    comments,
+                    watchHistory,
+                    likedVideos,
+                    watchLaterVideos
+                };
+                // Note: In a real app, you wouldn't store everything in localStorage
+                // This is just for demonstration purposes
+            }
+        }
+
+        function loadUserData() {
+            // In a real app, this would load from a server
+            // For demo purposes, we'll just initialize with empty data
+            watchHistory = [];
+            likedVideos = [];
+            watchLaterVideos = [];
+            playlists = [
+                {
+                    id: 1,
+                    name: "Favorites",
+                    description: "My favorite programming tutorials",
+                    privacy: "private",
+                    videos: [],
+                    createdBy: 1,
+                    createdAt: new Date()
+                }
+            ];
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchVideos();
+            }
+        });
+
+        document.getElementById('commentInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addComment();
+            }
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            const userMenu = document.getElementById('userMenu');
+            if (!event.target.closest('.header-icon') && !event.target.closest('.user-menu')) {
+                userMenu.style.display = 'none';
+            }
+        });
+
+        // Responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.add('collapsed');
+                document.getElementById('mainContent').classList.add('expanded');
+            } else {
+                document.getElementById('sidebar').classList.remove('collapsed');
+                document.getElementById('mainContent').classList.remove('expanded');
+            }
+        });
+
+        // Video player controls
+        document.addEventListener('keydown', function(e) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoElement = document.getElementById('videoElement');
+            
+            if (videoPlayer.style.display === 'block') {
+                switch(e.key) {
+                    case ' ':
+                        e.preventDefault();
+                        if (videoElement.paused) {
+                            videoElement.play();
+                        } else {
+                            videoElement.pause();
+                        }
+                        break;
+                    case 'Escape':
+                        closeVideoPlayer();
+                        break;
+                    case 'ArrowLeft':
+                        videoElement.currentTime -= 10;
+                        break;
+                    case 'ArrowRight':
+                        videoElement.currentTime += 10;
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        videoElement.volume = Math.min(1, videoElement.volume + 0.1);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        videoElement.volume = Math.max(0, videoElement.volume - 0.1);
+                        break;
+                }
+            }
+        });
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+
+            // --- Attach all the event listeners to make the UI interactive ---
+
+            // Header
+            document.getElementById('toggleSidebarBtn').addEventListener('click', toggleSidebar);
+            document.getElementById('logoLink').addEventListener('click', (e) => { e.preventDefault(); showHome(); });
+            document.getElementById('searchBtn').addEventListener('click', searchVideos);
+            document.getElementById('uploadBtn').addEventListener('click', showUploadModal);
+            document.getElementById('userAvatar').addEventListener('click', toggleUserMenu);
+            document.getElementById('loginItem').addEventListener('click', showAuthModal);
+            document.getElementById('logoutItem').addEventListener('click', logout);
+
+            // Sidebar Navigation
+            document.querySelector('.sidebar-item[data-nav="home"]').addEventListener('click', showHome);
+            document.querySelector('.sidebar-item[data-nav="channels"]').addEventListener('click', function() { toggleChannelsDropdown(this); });
+            document.querySelector('.sidebar-item[data-nav="channels-all"]').addEventListener('click', showHome);
+            document.querySelector('.sidebar-item[data-nav="channels-teen"]').addEventListener('click', function() { showCategory('Teen'); });
+            document.querySelector('.sidebar-item[data-nav="channels-virgin"]').addEventListener('click', function() { showCategory('Virgin'); });
+            document.querySelector('.sidebar-item[data-nav="channels-amateur"]').addEventListener('click', function() { showCategory('Amateur'); });
+            document.querySelector('.sidebar-item[data-nav="subscriptions"]').addEventListener('click', showSubscriptions);
+            document.querySelector('.sidebar-item[data-nav="library"]').addEventListener('click', showLibrary);
+            document.querySelector('.sidebar-item[data-nav="history"]').addEventListener('click', showHistory);
+            document.querySelector('.sidebar-item[data-nav="watchlater"]').addEventListener('click', showWatchLater);
+            // Note: 'Liked Videos' and 'Playlists' use onclick attributes in the HTML, which is also fine.
+
+            
+            // Set initial responsive state
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.add('collapsed');
+                document.getElementById('mainContent').classList.add('expanded');
+            }
+        });
+
+        // Utility functions
+        function formatViews(views) {
+            if (views >= 1000000) {
+                return (views / 1000000).toFixed(1) + 'M';
+            } else if (views >= 1000) {
+                return (views / 1000).toFixed(1) + 'K';
+            }
+            return views.toString();
+        }
+
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function formatTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'just now';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+            if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} days ago`;
+            if (diffInSeconds < 31536000) return `${Math.floor(diffInSeconds / 2592000)} months ago`;
+            return `${Math.floor(diffInSeconds / 31536000)} years ago`;
+        }
+
+        // Auto-save functionality
+        setInterval(function() {
+            if (currentUser) {
+                saveUserData();
+            }
+        }, 30000); // Save every 30 seconds
+
+        // Performance optimization: Lazy loading for video thumbnails
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Call lazy loading after images are loaded
+        setTimeout(lazyLoadImages, 1000);
+    </script>
+</body>
+</html>
